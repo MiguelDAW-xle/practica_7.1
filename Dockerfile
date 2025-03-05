@@ -1,15 +1,12 @@
-FROM node:14
+FROM node:14-alpine
 
-# Create app directory
-WORKDIR /usr/src/app
+WORKDIR /app
 
-# Install app dependencies
 COPY package.json yarn.lock ./
-RUN yarn install
+RUN yarn install --frozen-lockfile
 
-# Bundle app source
 COPY . .
 
 EXPOSE 8080
 
-CMD [ "node", "app.js" ]
+CMD ["yarn", "start"]
